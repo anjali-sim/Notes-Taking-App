@@ -1,5 +1,5 @@
 import { Navigate } from "react-router-dom";
-import NewNote from "../components/NewNote";
+import NewNote from "@src/components/NewNote";
 
 export const routes = [
   {
