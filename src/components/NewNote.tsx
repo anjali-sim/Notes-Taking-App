@@ -1,10 +1,10 @@
 import NoteForm from "@src/components/NoteForm";
 
-const NewNote = () => {
+const NewNote = ({onSubmit}) => {
   return (
     <>
     <h1 className="mb-4">New Note</h1>
-    <NoteForm />
+    <NoteForm onSubmit={onSubmit} />
     </>
   )
 };
