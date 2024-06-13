@@ -17,8 +17,8 @@ export type NoteFormProps = {
     onSubmit: (data: NoteData) => void
     onAddTag: (tag: Tag) => void,
     availableTags: Tag[]
-}
-
+} & Partial<NoteData>
+ 
 export type RawNote = {
     id: string
 } & RawNoteData
@@ -48,4 +48,14 @@ export type SimplifiedNote = {
 
 export type NoteLayoutProps = {
     notes: Note[]
+}
+
+export type EditNoteProps = {
+    onSubmit: (id: string, data: NoteData) => void,
+    onAddTag: (tag: Tag) => void,
+    availableTags: Tag[]
+}
+
+export type NoteProps = {
+    onDelete: (id: string) => void
 }

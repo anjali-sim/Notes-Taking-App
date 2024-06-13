@@ -2,12 +2,19 @@ import { NoteFormProps, Tag } from "@src/types/types";
 import { FormEvent, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import CreatableReactSelect from "react-select/creatable";
-import {v4 as uuidV4} from "uuid";
+import { v4 as uuidV4 } from "uuid";
 
-const NoteForm = ({ onSubmit, onAddTag, availableTags }: NoteFormProps) => {
+const NoteForm = ({
+  onSubmit,
+  onAddTag,
+  availableTags,
+  title = "",
+  content = "",
+  tags = [],
+}: NoteFormProps) => {
   const titleRef = useRef<HTMLInputElement>(null);
   const ContentRef = useRef<HTMLTextAreaElement>(null);
-  const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
+  const [selectedTags, setSelectedTags] = useState<Tag[]>(tags);
   const navigate = useNavigate();
 
   function handleSubmit(e: FormEvent) {
@@ -34,6 +41,7 @@ const NoteForm = ({ onSubmit, onAddTag, availableTags }: NoteFormProps) => {
                 className="form-control"
                 ref={titleRef}
                 id="title"
+                defaultValue={title}
                 required
               />
             </div>
@@ -44,16 +52,16 @@ const NoteForm = ({ onSubmit, onAddTag, availableTags }: NoteFormProps) => {
                 Tags
               </label>
               <CreatableReactSelect
-              onCreateOption={label => {
-                const newTag = {id: uuidV4(), label}
-                onAddTag(newTag)
-                setSelectedTags(prev => [...prev, newTag])
-              }}
+                onCreateOption={(label) => {
+                  const newTag = { id: uuidV4(), label };
+                  onAddTag(newTag);
+                  setSelectedTags((prev) => [...prev, newTag]);
+                }}
                 value={selectedTags.map((tag) => {
                   return { label: tag.label, value: tag.id };
                 })}
-                options={availableTags.map(tag => {
-                  return {label: tag.label, value: tag.id}
+                options={availableTags.map((tag) => {
+                  return { label: tag.label, value: tag.id };
                 })}
                 onChange={(tags) => {
                   setSelectedTags(
@@ -77,6 +85,7 @@ const NoteForm = ({ onSubmit, onAddTag, availableTags }: NoteFormProps) => {
                   className="form-control"
                   ref={ContentRef}
                   rows={15}
+                  defaultValue={content}
                   required
                 />
               </div>
